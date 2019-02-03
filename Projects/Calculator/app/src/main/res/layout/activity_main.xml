@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"
+    tools:context=".MainActivity">
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/expression_display"
+        android:maxLength="22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        android:textAlignment="viewEnd"
+        android:paddingHorizontal="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="90dp"
+        android:textColor="@color/colorGrey"
+        android:textSize="15sp"
+        android:maxLines="1"
+        android:textAlignment="viewEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:padding="10dp"
+        android:paddingBottom="0dp"
+        android:rowCount="3">
+
+        <Button
+            android:id="@+id/button7"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/button8"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/button9"
+            android:text="9" />
+
+        <Button
+            android:id="@+id/button4"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/button5"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/button6"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/button1"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/button3"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/button_plus"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/button0"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/button_minus"
+            android:text="-" />
+
+        <ImageView
+            android:id="@+id/kitty"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_columnSpan="2"
+            android:src="@drawable/test_kitty"
+            />
+
+        <Button
+            android:id="@+id/button_launch"
+            android:layout_column="2"
+            android:text="=" />
+    </GridLayout>
+
+
+</LinearLayout>
