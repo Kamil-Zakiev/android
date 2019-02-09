@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 final Tile tappedTile = tilesDictionary.GetTileById(viewId);
+                if(gameEngine.IsOpened(tappedTile)){
+                    return;
+                }
 
                 boolean wasOpened = TryToOpenTile(tappedTile);
                 if (!wasOpened) {
