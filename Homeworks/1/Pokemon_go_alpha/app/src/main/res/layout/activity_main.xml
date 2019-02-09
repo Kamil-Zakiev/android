@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/firstRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/secondRow"
+        android:weightSum="3"
+        >
+        <ImageView
+            android:id="@+id/ic1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/background"
+            android:padding="@dimen/tile_padding_dp"
+            android:contentDescription="@string/tile1"
+            />
+        <ImageView
+            android:id="@+id/ic2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/background"
+            android:padding="@dimen/tile_padding_dp"
+            android:contentDescription="@string/tile2"
+            />
+        <ImageView
+            android:id="@+id/ic3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/background"
+            android:padding="@dimen/tile_padding_dp"
+            android:contentDescription="@string/tile3"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secondRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstRow"
+        app:layout_constraintBottom_toTopOf="@id/thirdRow">
+        <ImageView
+            android:id="@+id/ic4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            android:contentDescription="@string/tile4" />
+        <ImageView
+            android:id="@+id/ic5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            android:contentDescription="@string/tile5" />
+        <ImageView
+            android:id="@+id/ic6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            android:contentDescription="@string/tile6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thirdRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondRow"
+        app:layout_constraintBottom_toTopOf="@id/forthRow">
+        <ImageView
+            android:id="@+id/ic7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            android:contentDescription="@string/tile7" />
+        <ImageView
+            android:id="@+id/ic8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            android:contentDescription="@string/tile8" />
+        <ImageView
+            android:id="@+id/ic9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            android:contentDescription="@string/tile9" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/forthRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thirdRow"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:id="@+id/ic10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/tile10" />
+        <ImageView
+            android:id="@+id/ic11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/tile11"
+            />
+        <ImageView
+            android:id="@+id/ic12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp"
+            android:src="@drawable/background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/tile12" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

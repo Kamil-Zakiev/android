@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="not_matching_tiles_close_delay_ms">500</integer>
+    <integer name="game_restart_delay_ms">1000</integer>
+</resources>

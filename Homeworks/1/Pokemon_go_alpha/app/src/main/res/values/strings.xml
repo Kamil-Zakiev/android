@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Pokemon go alpha</string>
+    <string name="win_massage">Good job! Lets do it again!</string>
+    <string name="tile1">Tile number 1.</string>
+    <string name="tile2">Tile number 2.</string>
+    <string name="tile3">Tile number 3.</string>
+    <string name="tile4">Tile number 4.</string>
+    <string name="tile5">Tile number 5.</string>
+    <string name="tile6">Tile number 6.</string>
+    <string name="tile7">Tile number 7.</string>
+    <string name="tile8">Tile number 8.</string>
+    <string name="tile9">Tile number 9.</string>
+    <string name="tile10">Tile number 10.</string>
+    <string name="tile11">Tile number 11.</string>
+    <string name="tile12">Tile number 12.</string>
+    <string name="pokemon_file_prefix">pic_</string>
+</resources>
