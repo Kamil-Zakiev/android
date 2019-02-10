@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pokemon go alpha</string>
-    <string name="win_massage">Good job! Lets do it again!</string>
+    <string name="win_massage">Good job!</string>
     <string name="tile1">Tile number 1.</string>
     <string name="tile2">Tile number 2.</string>
     <string name="tile3">Tile number 3.</string>
@@ -14,4 +14,8 @@
     <string name="tile11">Tile number 11.</string>
     <string name="tile12">Tile number 12.</string>
     <string name="pokemon_file_prefix">pic_</string>
+    <string name="start_new_game_btn_text">START A NEW ROUND</string>
+    <string name="fastest_result_key">fastestResult</string>
+    <string name="best_time_format">Best time is %1$d sec.</string>
+    <string name="best_time_congrats_format">You have beaten previous best time! Your result is %1$d sec.</string>
 </resources>

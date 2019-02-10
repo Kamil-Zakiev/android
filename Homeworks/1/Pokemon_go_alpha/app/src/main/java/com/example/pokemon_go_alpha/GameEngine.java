@@ -7,6 +7,9 @@ import java.util.Map;
 public final class GameEngine {
     private Map<Integer, TileState> _tileStateMap;
     private Tile _orphanTile;
+    private boolean DidMakeFirstTap = false;
+    private long startTimeMs;
+    private long gameDurationMs;
 
     public GameEngine(Tile[] tiles) {
         _tileStateMap = new HashMap<Integer, TileState>();
@@ -17,6 +20,11 @@ public final class GameEngine {
     }
 
     public void Tap(Tile tile) {
+        if(!DidMakeFirstTap) {
+            startTimeMs = System.currentTimeMillis();
+            DidMakeFirstTap = true;
+        }
+
         int tileId = tile.GetId();
         if (!_tileStateMap.containsKey(tileId)) {
             throw new IndexOutOfBoundsException();
@@ -32,10 +40,15 @@ public final class GameEngine {
             return;
         }
 
-        if (/*_orphanTile != tile && */_orphanTile.GetResourceId() == tile.GetResourceId()) {
+        if (_orphanTile.GetResourceId() == tile.GetResourceId()) {
             _tileStateMap.put(_orphanTile.GetId(), TileState.OPENED);
             _tileStateMap.put(tileId, TileState.OPENED);
             _orphanTile = null;
+
+            if(IsGameOver()){
+                gameDurationMs = System.currentTimeMillis() - startTimeMs;
+            }
+
             return;
         }
 
@@ -62,6 +75,10 @@ public final class GameEngine {
         }
 
         return true;
+    }
+
+    public long GetGameDurationMs(){
+        return gameDurationMs;
     }
 
     private enum TileState {

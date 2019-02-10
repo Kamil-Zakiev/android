@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
@@ -24,20 +25,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         resources = getApplicationContext().getResources();
-        tilesViewIds = new int[]{R.id.ic1, R.id.ic2, R.id.ic3, R.id.ic4, R.id.ic5, R.id.ic6,
-                R.id.ic7, R.id.ic8, R.id.ic9, R.id.ic10, R.id.ic11, R.id.ic12};
-
+        tilesViewIds = new int[]{R.id.ic1, R.id.ic2, R.id.ic3, R.id.ic4, R.id.ic5, R.id.ic6, R.id.ic7, R.id.ic8, R.id.ic9, R.id.ic10, R.id.ic11, R.id.ic12};
         tilesFactory = new TilesFactory(GetResourceIds());
         tilesDictionary = new TilesDictionary(tilesViewIds);
-        PrepareNewGame();
 
-        FreezeTilesSize();
-        for (int viewId : tilesViewIds) {
-            AddTileClickHandler(viewId);
-        }
+        ShowStartPage();
     }
 
     private int[] GetResourceIds() {
@@ -69,6 +63,28 @@ public class MainActivity extends AppCompatActivity {
             layoutParams.width = sizePerSquare;
             layoutParams.height = sizePerSquare;
         }
+    }
+
+    private void ShowStartPage(){
+        setContentView(R.layout.start_page);
+        long bestMs = getPreferences(MODE_PRIVATE).getLong(resources.getString(R.string.fastest_result_key), Long.MAX_VALUE);
+        if(bestMs != Long.MAX_VALUE){
+            ((TextView)findViewById(R.id.recordView)).setText(getString(R.string.best_time_format, bestMs / 1000));
+        }
+
+        findViewById(R.id.startButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.activity_main);
+
+                PrepareNewGame();
+                FreezeTilesSize();
+                for (int viewId : tilesViewIds) {
+                    AddTileClickHandler(viewId);
+                }
+
+            }
+        });
     }
 
     private void PrepareNewGame() {
@@ -118,13 +134,22 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Toast toast = Toast.makeText(getApplicationContext(), R.string.win_massage, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), R.string.win_massage, Toast.LENGTH_SHORT);
         toast.show();
+
+        long gameDurationMs = gameEngine.GetGameDurationMs();
+        long bestMs = getPreferences(MODE_PRIVATE).getLong(resources.getString(R.string.fastest_result_key), Long.MAX_VALUE);
+        final boolean recordWasBeaten = bestMs > gameDurationMs;
+        if(recordWasBeaten){
+            getPreferences(MODE_PRIVATE).edit().putLong(resources.getString(R.string.fastest_result_key), gameDurationMs).apply();
+            Toast toast2 = Toast.makeText(getApplicationContext(), getString(R.string.best_time_congrats_format, gameDurationMs / 1000), Toast.LENGTH_SHORT);
+            toast2.show();
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                PrepareNewGame();
+                ShowStartPage();
             }
         }, resources.getInteger(R.integer.game_restart_delay_ms));
     }
@@ -142,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void CloseTile(Tile tile) {
-        ((ImageView) findViewById(tile.GetId())).setImageResource(R.drawable.background);
+        ImageView tileView = findViewById(tile.GetId());
+        tileView.setImageResource(R.drawable.background);
     }
 }
