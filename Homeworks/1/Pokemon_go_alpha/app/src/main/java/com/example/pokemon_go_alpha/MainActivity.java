@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,15 +55,6 @@ public class MainActivity extends AppCompatActivity {
         return resourceIds;
     }
 
-    private void FreezeTilesSize() {
-        int sizePerSquare = getResources().getDisplayMetrics().widthPixels / 3;
-        for (int viewId : tilesViewIds) {
-            ViewGroup.LayoutParams layoutParams = findViewById(viewId).getLayoutParams();
-            layoutParams.width = sizePerSquare;
-            layoutParams.height = sizePerSquare;
-        }
-    }
-
     private void ShowStartPage(){
         setContentView(R.layout.start_page);
         long bestMs = getPreferences(MODE_PRIVATE).getLong(resources.getString(R.string.fastest_result_key), Long.MAX_VALUE);
@@ -78,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_main);
 
                 PrepareNewGame();
-                FreezeTilesSize();
                 for (int viewId : tilesViewIds) {
                     AddTileClickHandler(viewId);
                 }
