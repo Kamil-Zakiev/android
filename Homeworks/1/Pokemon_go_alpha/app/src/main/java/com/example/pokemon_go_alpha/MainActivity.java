@@ -145,7 +145,12 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean TryToOpenTile(Tile tile) {
         gameEngine.Tap(tile);
-        ((ImageView) findViewById(tile.GetId())).setImageResource(tile.GetResourceId());
+        ImageView tileView = findViewById(tile.GetId());
+        tileView.setImageResource(tile.GetResourceId());
+
+        // todo: fix later by appropriate back icon
+        int padding = resources.getInteger(R.integer.normal_padding);
+        tileView.setPadding(padding, padding, padding, padding);
         return gameEngine.IsOpened(tile);
     }
 
@@ -157,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void CloseTile(Tile tile) {
         ImageView tileView = findViewById(tile.GetId());
-        tileView.setImageResource(R.drawable.background);
+        tileView.setImageResource(R.drawable.pokeball_transparent);
+        
+        // todo: fix later by appropriate back icon
+        int padding = 40;
+        tileView.setPadding(padding, padding, padding, padding);
     }
 }

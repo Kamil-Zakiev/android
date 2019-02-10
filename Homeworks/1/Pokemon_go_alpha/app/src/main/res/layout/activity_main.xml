@@ -1,209 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:weightSum="4"
-    >
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/tile_padding_dp"
             android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/ic1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile1"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile2"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile3"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile4"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile5"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile6"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile7"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile8"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile9"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic10"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile10"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile11"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="@dimen/tile_padding_dp">
 
             <ImageView
                 android:id="@+id/ic12"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/tile12"
-                android:padding="@dimen/tile_padding_dp"
-                android:src="@drawable/background" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ball" />
         </LinearLayout>
 
     </LinearLayout>
