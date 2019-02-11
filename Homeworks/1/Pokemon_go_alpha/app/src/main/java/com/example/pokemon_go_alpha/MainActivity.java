@@ -1,10 +1,15 @@
 package com.example.pokemon_go_alpha;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -143,14 +148,9 @@ public class MainActivity extends AppCompatActivity {
         }, resources.getInteger(R.integer.game_restart_delay_ms));
     }
 
-    private boolean TryToOpenTile(Tile tile) {
+    private boolean TryToOpenTile(final Tile tile) {
         gameEngine.Tap(tile);
-        ImageView tileView = findViewById(tile.GetId());
-        tileView.setImageResource(tile.GetResourceId());
-
-        // todo: fix later by appropriate back icon
-        int padding = resources.getInteger(R.integer.normal_padding);
-        tileView.setPadding(padding, padding, padding, padding);
+        AnimateFlip(tile.GetId(), tile.GetResourceId());
         return gameEngine.IsOpened(tile);
     }
 
@@ -160,12 +160,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void CloseTile(Tile tile) {
-        ImageView tileView = findViewById(tile.GetId());
-        tileView.setImageResource(R.drawable.pokeball_transparent);
-        
-        // todo: fix later by appropriate back icon
-        int padding = 40;
-        tileView.setPadding(padding, padding, padding, padding);
+    private void CloseTile(final Tile tile) {
+        AnimateFlip(tile.GetId(), R.drawable.backball);
+    }
+
+    private DecelerateInterpolator DecelerateInterpolator = new DecelerateInterpolator();
+    private AccelerateDecelerateInterpolator AccelerateDecelerateInterpolator = new AccelerateDecelerateInterpolator();
+
+    private void AnimateFlip(final int tileViewId, final int recourceId){
+        final ImageView tileView = findViewById(tileViewId);
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(tileView, "scaleY", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(tileView, "scaleY", 0f, 1f);
+        oa1.setInterpolator(DecelerateInterpolator);
+        oa2.setInterpolator(AccelerateDecelerateInterpolator);
+        int flipDurationMs = resources.getInteger(R.integer.flip_duration_ms);
+        oa1.setDuration(flipDurationMs);
+        oa2.setDuration(flipDurationMs);
+
+        oa1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                tileView.setImageResource(recourceId);
+                oa2.start();
+            }
+        });
+        oa1.start();
     }
 }

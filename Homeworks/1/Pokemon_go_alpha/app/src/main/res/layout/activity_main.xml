@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/tile_padding_dp"
+            android:padding="@dimen/tile_padding_dp"
             android:layout_weight="1">
 
             <ImageView
@@ -26,7 +26,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile1"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile2"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile3"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
     </LinearLayout>
@@ -81,7 +81,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile4"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +97,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile5"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,7 +113,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile6"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
     </LinearLayout>
@@ -136,7 +136,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile7"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -152,7 +152,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile8"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -168,7 +168,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile9"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
     </LinearLayout>
@@ -191,7 +191,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile10"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -207,7 +207,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile11"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
         <LinearLayout
@@ -223,7 +223,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/tile12"
                 android:scaleType="centerInside"
-                android:src="@drawable/ball" />
+                android:src="@drawable/backball" />
         </LinearLayout>
 
     </LinearLayout>
