@@ -1,14 +1,44 @@
 package com.example.vkwall;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
-public class VkPost {
+public class VkPost  implements Parcelable {
     private long _id;
     private String _avatarUrl;
     private String _userName;
+
+    private VkPost(Parcel in) {
+        _id = in.readLong();
+        _avatarUrl = in.readString();
+        _userName = in.readString();
+        _date = in.readString();
+        _text = in.readString();
+        _imgUrl = in.readString();
+        _isUserLike = in.readByte() != 0;
+        _likesCount = in.readInt();
+        _commentsCount = in.readInt();
+        _sharesCount = in.readInt();
+    }
+
+    public static final Creator<VkPost> CREATOR = new Creator<VkPost>() {
+        @Override
+        public VkPost createFromParcel(Parcel in) {
+            return new VkPost(in);
+        }
+
+        @Override
+        public VkPost[] newArray(int size) {
+            return new VkPost[size];
+        }
+    };
 
     public static VkPost ByJson(JSONObject jsonobject) {
         try {
@@ -23,7 +53,7 @@ public class VkPost {
             int commentsCount = jsonobject.getInt("comments_count");
             int sharesCount = jsonobject.getInt("shares_count");
 
-            return new VkPost(id, avatarUrl, username, new Date(postDate), text, img, isUserLike, likesCount, commentsCount, sharesCount);
+            return new VkPost(id, avatarUrl, username, new Date(postDate), text.equals("null") ? null : text, img.equals("null") ? null : img, isUserLike, likesCount, commentsCount, sharesCount);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -38,7 +68,8 @@ public class VkPost {
         return _userName;
     }
 
-    public Date getDate() {
+    public String getDate() {
+
         return _date;
     }
 
@@ -46,24 +77,32 @@ public class VkPost {
         return _text;
     }
 
+    public boolean hasText(){
+        return _text != null;
+    }
+
     public String getImgUrl() {
         return _imgUrl;
+    }
+
+    public boolean hasImage(){
+        return _imgUrl != null;
     }
 
     public boolean isUserLike() {
         return _isUserLike;
     }
 
-    public int getLikesCount() {
-        return _likesCount;
+    public String getLikesCount() {
+        return String.valueOf(_likesCount);
     }
 
-    public int getCommentsCount() {
-        return _commentsCount;
+    public String getCommentsCount() {
+        return String.valueOf(_commentsCount);
     }
 
-    public int getSharesCount() {
-        return _sharesCount;
+    public String getSharesCount() {
+        return String.valueOf(_sharesCount);
     }
 
     public void Like(){
@@ -76,7 +115,7 @@ public class VkPost {
         _isUserLike = !isUserLike();
     }
 
-    private Date _date;
+    private String _date;
     private String _text;
     private String _imgUrl;
     private boolean _isUserLike;
@@ -84,16 +123,44 @@ public class VkPost {
     private int _commentsCount;
     private int _sharesCount;
 
+    private static java.text.SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
     public VkPost(long id, String avatarUrl, String userName, Date date, String text, String imgUrl, boolean isUserLike, int likesCount, int commentsCount, int sharesCount){
         _id = id;
         _avatarUrl = avatarUrl;
         _userName = userName;
-        _date = date;
+
+        long daysDiff = TimeUnit.DAYS.convert((new Date().getTime()- date.getTime()), TimeUnit.MILLISECONDS);
+        if(daysDiff > 7){
+            _date = SimpleDateFormat.format(date);
+        } else {
+            // todo: move to resources...
+            _date = daysDiff + " дней назад";
+        }
+
         _imgUrl = imgUrl;
         _isUserLike = isUserLike;
         _likesCount = likesCount;
         _commentsCount = commentsCount;
         _sharesCount = sharesCount;
         _text = text;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(_id);
+        dest.writeString(_avatarUrl);
+        dest.writeString(_userName);
+        dest.writeString(_date);
+        dest.writeString(_text);
+        dest.writeString(_imgUrl);
+        dest.writeByte((byte) (_isUserLike ? 1 : 0));
+        dest.writeInt(_likesCount);
+        dest.writeInt(_commentsCount);
+        dest.writeInt(_sharesCount);
     }
 }

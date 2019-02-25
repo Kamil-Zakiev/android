@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public final class VkPostViewHolder extends RecyclerView.ViewHolder {
     private TextView postAuthorTw;
@@ -47,44 +45,41 @@ public final class VkPostViewHolder extends RecyclerView.ViewHolder {
         return heartPanel;
     }
 
+    public View GetTextView(){
+        return postTextTw;
+    }
+
+    public View GetIngView(){
+        return postImage;
+    }
+
+    public Context GetContext(){
+        return context;
+    }
+
     private static CircleTransform CircleTransform = new CircleTransform();
-    private static SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
     public void SetData(VkPost post) {
-
         Picasso.get().load(post.getAvatarUrl()).transform(VkPostViewHolder.CircleTransform).into(avatar);
-
         postAuthorTw.setText(post.getUserName());
+        postDate.setText(post.getDate());
 
-        String date = null;
-        long daysDiff = TimeUnit.DAYS.convert((new Date().getTime()- post.getDate().getTime()), TimeUnit.MILLISECONDS);
-        if(daysDiff > 7){
-            date = SimpleDateFormat.format(post.getDate());
-        } else {
-            // todo: move to resources...
-            date = daysDiff + " дней назад";
-        }
-
-        postDate.setText(date);
-
-        String text = post.getText();
-        if (text == "null") {
-            postTextTw.setVisibility(View.GONE);
-        } else {
+        if (post.hasText()) {
             postTextTw.setVisibility(View.VISIBLE);
             postTextTw.setText(post.getText());
-        }
-
-        String imgUrl = post.getImgUrl();
-        if (imgUrl == "null") {
-            postImage.setVisibility(View.GONE);
         } else {
-            postImage.setVisibility(View.VISIBLE);
-            Picasso.get().load(imgUrl).into(postImage);
+            postTextTw.setVisibility(View.GONE);
         }
 
-        likesCount.setText(String.valueOf(post.getLikesCount()));
-        commentsCount.setText(String.valueOf(post.getCommentsCount()));
-        sharesCount.setText(String.valueOf(post.getSharesCount()));
+        if (post.hasImage()) {
+            postImage.setVisibility(View.VISIBLE);
+            Picasso.get().load(post.getImgUrl()).into(postImage);
+        } else {
+            postImage.setVisibility(View.GONE);
+        }
+
+        likesCount.setText(post.getLikesCount());
+        commentsCount.setText(post.getCommentsCount());
+        sharesCount.setText(post.getSharesCount());
 
         if (post.isUserLike()) {
             heartImage.setColorFilter(context.getResources().getColor(R.color.selfLiked));

@@ -1,5 +1,6 @@
 package com.example.vkwall;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,22 @@ public final class VkPostsAdapter extends RecyclerView.Adapter<VkPostViewHolder>
                         adapter.notifyItemChanged(i);
                     }
                 });
+
+        final Context context = vkPostViewHolder.GetContext();
+        vkPostViewHolder.GetTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailedPost.start(context, posts[i]);
+            }
+        });
+
+        vkPostViewHolder.GetIngView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailedPost.start(context, posts[i]);
+            }
+        });
+
     }
 
     @Override
