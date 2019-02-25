@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="selfLiked">#D81B60</color>
     <color name="standard">#9E9E9E</color>
+    <color name="username">#000000</color>
 </resources>

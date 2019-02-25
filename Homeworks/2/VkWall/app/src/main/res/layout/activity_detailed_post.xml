@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/card_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -22,22 +22,22 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/avatar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/avatar_radius"
+                    android:layout_height="@dimen/avatar_radius"
                     android:src="@color/colorPrimaryDark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp">
+                    android:paddingStart="@dimen/username_padding_horizontal"
+                    android:paddingEnd="@dimen/username_padding_horizontal">
 
                     <TextView
                         android:id="@+id/post_author"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#000000"
+                        android:textColor="@color/username"
                         tools:text="Name" />
 
                     <TextView
@@ -54,47 +54,47 @@
                 android:id="@+id/post_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/card_padding"
                 tools:text="Message" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="@dimen/card_padding">
 
                 <ImageView
                     android:id="@+id/post_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/rose" />
+                    android:contentDescription="@string/img_desc"
+                    tools:src="@drawable/rose" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="@dimen/splitter_height"
+                android:layout_marginTop="@dimen/card_padding"
+                android:layout_marginBottom="@dimen/card_padding"
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="@dimen/icon_panel_height">
 
                 <LinearLayout
                     android:id="@+id/likesArea"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/icon_panel_height"
                     android:layout_weight="1"
                     android:gravity="center">
 
                     <ImageView
                         android:id="@+id/heart"
-                        android:layout_width="25dp"
+                        android:layout_width="@dimen/icon_width"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="@dimen/counter_horizontal_margin"
+                        android:layout_marginRight="@dimen/counter_horizontal_margin"
                         android:src="@drawable/love"
                         android:tint="@color/colorAccent" />
 
@@ -109,15 +109,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/icon_panel_height"
                     android:layout_weight="1"
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="25dp"
+                        android:layout_width="@dimen/icon_width"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="@dimen/counter_horizontal_margin"
+                        android:layout_marginRight="@dimen/counter_horizontal_margin"
                         android:src="@drawable/comment" />
 
                     <TextView
@@ -131,15 +131,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/icon_panel_height"
                     android:layout_weight="1"
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="25dp"
+                        android:layout_width="@dimen/icon_width"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="@dimen/counter_horizontal_margin"
+                        android:layout_marginRight="@dimen/counter_horizontal_margin"
                         android:src="@drawable/repost" />
 
                     <TextView

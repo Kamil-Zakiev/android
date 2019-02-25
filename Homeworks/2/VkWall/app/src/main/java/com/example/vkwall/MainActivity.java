@@ -13,6 +13,7 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     private static int REQUEST_CODE = 1;
+
     private VkPostsAdapter adapter;
 
     @Override
@@ -54,34 +55,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private VkPost[] getPostsFromJson(){
+        String recentDateEnding = getResources().getString(R.string.img_desc);
         VkPost[] posts = null;
-        try {
-            String jsonStr = loadJSONFromAsset();
-            JSONArray jsonarray = new JSONArray(jsonStr);
-            posts = new VkPost[jsonarray.length()];
-            for (int i = 0; i < jsonarray.length(); i++) {
-                posts[i] = VkPost.ByJson(jsonarray.getJSONObject(i));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return posts;
-    }
-
-    private String loadJSONFromAsset() {
-        String json = null;
         try {
             InputStream is = this.getAssets().open("vk_posts.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
+            String jsonStr = new String(buffer, "UTF-8");
+            JSONArray jsonarray = new JSONArray(jsonStr);
+            posts = new VkPost[jsonarray.length()];
+            for (int i = 0; i < jsonarray.length(); i++) {
+                posts[i] = VkPost.ByJson(jsonarray.getJSONObject(i), recentDateEnding);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return json;
+
+        return posts;
     }
 }

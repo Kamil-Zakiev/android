@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_margin">7dp</dimen>
+    <dimen name="card_padding">10dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="avatar_radius">40dp</dimen>
+    <dimen name="username_padding_horizontal">3dp</dimen>
+    <dimen name="splitter_height">1dp</dimen>
+    <dimen name="icon_panel_height">40dp</dimen>
+    <dimen name="icon_width">25dp</dimen>
+    <dimen name="counter_horizontal_margin">5dp</dimen>
+
+</resources>

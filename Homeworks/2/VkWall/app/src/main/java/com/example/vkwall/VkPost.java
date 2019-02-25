@@ -40,7 +40,7 @@ public class VkPost  implements Parcelable {
         }
     };
 
-    public static VkPost ByJson(JSONObject jsonobject) {
+    public static VkPost ByJson(JSONObject jsonobject, String recentDateEnding) {
         try {
             long id = jsonobject.getLong("id");
             String avatarUrl = jsonobject.getString("avatar_url");
@@ -53,7 +53,7 @@ public class VkPost  implements Parcelable {
             int commentsCount = jsonobject.getInt("comments_count");
             int sharesCount = jsonobject.getInt("shares_count");
 
-            return new VkPost(id, avatarUrl, username, new Date(postDate), text.equals("null") ? null : text, img.equals("null") ? null : img, isUserLike, likesCount, commentsCount, sharesCount);
+            return new VkPost(id, avatarUrl, username, new Date(postDate), text.equals("null") ? null : text, img.equals("null") ? null : img, isUserLike, likesCount, commentsCount, sharesCount, recentDateEnding);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -124,7 +124,7 @@ public class VkPost  implements Parcelable {
     private int _sharesCount;
 
     private static java.text.SimpleDateFormat SimpleDateFormat = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-    public VkPost(long id, String avatarUrl, String userName, Date date, String text, String imgUrl, boolean isUserLike, int likesCount, int commentsCount, int sharesCount){
+    public VkPost(long id, String avatarUrl, String userName, Date date, String text, String imgUrl, boolean isUserLike, int likesCount, int commentsCount, int sharesCount, String recentDateEnding){
         _id = id;
         _avatarUrl = avatarUrl;
         _userName = userName;
@@ -133,8 +133,7 @@ public class VkPost  implements Parcelable {
         if(daysDiff > 7){
             _date = SimpleDateFormat.format(date);
         } else {
-            // todo: move to resources...
-            _date = daysDiff + " дней назад";
+            _date = daysDiff + recentDateEnding;
         }
 
         _imgUrl = imgUrl;

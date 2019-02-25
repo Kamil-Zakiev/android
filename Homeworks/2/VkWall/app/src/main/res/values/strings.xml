@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">VkWall</string>
+    <string name="img_desc">Attached image</string>
+    <string name="recent_date_ending"> дней назад</string>
 </resources>
