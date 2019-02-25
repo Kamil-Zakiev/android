@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-
 public final class VkPostViewHolder extends RecyclerView.ViewHolder {
     private TextView postAuthorTw;
     private TextView postTextTw;
@@ -51,10 +49,6 @@ public final class VkPostViewHolder extends RecyclerView.ViewHolder {
 
     public View GetIngView(){
         return postImage;
-    }
-
-    public Context GetContext(){
-        return context;
     }
 
     private static CircleTransform CircleTransform = new CircleTransform();
