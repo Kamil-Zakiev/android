@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="morning_forecast">Morning: %1$d °C</string>
+    <string name="afternoon_forecast">Afternoon: %1$d °C</string>
+    <string name="evening_forecast">Evening: %1$d °C</string>
+    <string name="overnight_forecast">Overnight: %1$d °C</string>
+    <string name="default_city">Kazan</string>
+    <string name="change_city">Change city</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="ok_btn">OK</string>
+    <string name="icon_that_describes_weather">icon that describes weather</string>
+    <string name="weather_forecast_for_the_selected_city_not_found">Weather forecast for the selected city not found</string>
 </resources>

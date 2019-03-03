@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_margin">7dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="date_text_size">20sp</dimen>
+    <dimen name="forecast_text_size">16sp</dimen>
+    <dimen name="img_size">100dp</dimen>
+    <dimen name="img_padding">5dp</dimen>
+    <dimen name="change_city_horizontal_padding">5dp</dimen>
+    <dimen name="forecast_margin">7dp</dimen>
+</resources>
