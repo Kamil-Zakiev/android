@@ -1,18 +1,20 @@
 package com.example.weather;
 
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private static int REQUEST_CODE = 1;
     RecyclerView weatherRw;
     private Toolbar toolbar;
     private TextView noForecastTw;
@@ -45,30 +47,42 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        Intent intent =  new Intent(this, EditCityActivity.class);
-        startActivityForResult(intent, REQUEST_CODE);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        EditText input = new EditText(this);
+        final int id = 123;
+        input.setId(id);
+        alert.setView(input);
 
+        alert.setTitle(R.string.change_city);
+
+        alert.setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
+            //@Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText input = ((AlertDialog)dialog).findViewById(id);
+                Editable value = input.getText();
+
+                String newCity = value.toString();
+                if (newCity.isEmpty() || newCity.contentEquals(toolbar.getTitle())) {
+                    return;
+                }
+
+                weatherRw.setVisibility(View.GONE);
+                noForecastTw .setVisibility(View.VISIBLE);
+
+                toolbar.setTitle(newCity);
+            }
+        });
+
+        alert.setNegativeButton(R.string.cancel_btn, new DialogInterface.OnClickListener() {
+            //@Override
+            public void onClick(DialogInterface dialog, int which) {
+                // do nothing
+            }
+        });
+
+        alert.show();
         return true;
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode != REQUEST_CODE || resultCode != RESULT_OK) {
-            return;
-        }
-
-        String newCity = data.getStringExtra(EditCityActivity.NEW_CITY);
-        if (newCity.isEmpty() || newCity.contentEquals(toolbar.getTitle())) {
-            return;
-        }
-
-        weatherRw.setVisibility(View.GONE);
-        noForecastTw .setVisibility(View.VISIBLE);
-
-        toolbar.setTitle(newCity);
-    }
-
 
     private DayForecast[] GetTestData() {
         int i = 0;
