@@ -1,6 +1,7 @@
 package com.example.weather;
 
 import android.content.DialogInterface;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +15,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     RecyclerView weatherRw;
     private Toolbar toolbar;
     private TextView noForecastTw;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,18 @@ public class MainActivity extends AppCompatActivity {
 
         weatherRw = findViewById(R.id.weather_rw);
         weatherRw.setLayoutManager(new LinearLayoutManager(this));
-        weatherRw.setAdapter(new WeatherForecastsAdapter(GetTestData()));
+
+        // todo: implement city retrieval
+
+
+        // todo: implement DB call
+        DayForecast[] dbData = GetTestData();
+        weatherRw.setAdapter(new WeatherForecastsAdapter(dbData));
+
+        // todo: initiate API call and further invalidation
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -43,44 +56,41 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() != R.id.editCity){
+        if (item.getItemId() != R.id.editCity) {
             return true;
         }
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
         EditText input = new EditText(this);
         final int id = 123;
         input.setId(id);
-        alert.setView(input);
+        new AlertDialog.Builder(this)
+                .setView(input)
+                .setTitle(R.string.change_city)
+                .setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
+                    //@Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText input = ((AlertDialog) dialog).findViewById(id);
+                        Editable value = input.getText();
 
-        alert.setTitle(R.string.change_city);
+                        String newCity = value.toString();
+                        if (newCity.isEmpty() || newCity.contentEquals(toolbar.getTitle())) {
+                            return;
+                        }
 
-        alert.setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
-            //@Override
-            public void onClick(DialogInterface dialog, int which) {
-                EditText input = ((AlertDialog)dialog).findViewById(id);
-                Editable value = input.getText();
+                        toolbar.setTitle(newCity);
 
-                String newCity = value.toString();
-                if (newCity.isEmpty() || newCity.contentEquals(toolbar.getTitle())) {
-                    return;
-                }
+                        // todo: implement city name saving in shared preferences
 
-                weatherRw.setVisibility(View.GONE);
-                noForecastTw .setVisibility(View.VISIBLE);
-
-                toolbar.setTitle(newCity);
-            }
-        });
-
-        alert.setNegativeButton(R.string.cancel_btn, new DialogInterface.OnClickListener() {
-            //@Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-            }
-        });
-
-        alert.show();
+                        InvalidateData();
+                    }
+                })
+                .setNegativeButton(R.string.cancel_btn, new DialogInterface.OnClickListener() {
+                    //@Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
         return true;
     }
 
@@ -106,5 +116,30 @@ public class MainActivity extends AppCompatActivity {
                 new DayForecast("Day 16", i++, i++, i++, i++, testUrl),
                 new DayForecast("Day 17", i++, i++, i++, i++, testUrl),
         };
+    }
+
+    @Override
+    public void onRefresh() {
+        InvalidateData();
+    }
+
+    private void InvalidateData() {
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+
+        String cityName = toolbar.getTitle().toString();
+        DayForecast[] data = GetTestData();
+
+        if (data.length == 0) {
+            weatherRw.setVisibility(View.GONE);
+            noForecastTw.setVisibility(View.VISIBLE);
+        } else {
+            weatherRw.setVisibility(View.VISIBLE);
+            noForecastTw.setVisibility(View.GONE);
+            weatherRw.setAdapter(new WeatherForecastsAdapter(data));
+        }
+
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
