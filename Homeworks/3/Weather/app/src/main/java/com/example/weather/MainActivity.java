@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+    public static final String SELECTED_CITY = "selected_city";
     RecyclerView weatherRw;
     private Toolbar toolbar;
     private TextView noForecastTw;
@@ -29,7 +30,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         toolbar = findViewById(R.id.toolbar);
         noForecastTw = findViewById(R.id.empty_view);
 
-        toolbar.setTitle(R.string.default_city);
+        String cityName = getPreferences(MODE_PRIVATE).getString(SELECTED_CITY, null);
+        if (cityName == null){
+            cityName = getResources().getString(R.string.default_city);
+        }
+
+        toolbar.setTitle(cityName);
         setSupportActionBar(toolbar);
 
         weatherRw = findViewById(R.id.weather_rw);
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         EditText input = new EditText(this);
         final int id = 123;
         input.setId(id);
+        final MainActivity mainActivity = this;
         new AlertDialog.Builder(this)
                 .setView(input)
                 .setTitle(R.string.change_city)
@@ -77,9 +84,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                             return;
                         }
 
-                        toolbar.setTitle(newCity);
+                        mainActivity.getPreferences(MODE_PRIVATE)
+                                .edit()
+                                .putString(SELECTED_CITY, newCity)
+                                .apply();
 
-                        // todo: implement city name saving in shared preferences
+                        toolbar.setTitle(newCity);
 
                         InvalidateData();
                     }
