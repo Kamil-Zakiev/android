@@ -2,32 +2,41 @@ package com.example.weather;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public final class DayForecastHolder extends RecyclerView.ViewHolder {
     private final Context context;
 
-    private TextView dateTw;
-    private TextView morningTw;
-    private TextView afternoonTw;
-    private TextView eveningTw;
-    private TextView overnightTw;
-    private ImageView imageView;
+    @BindView(R.id.date)
+    public TextView dateTw;
+
+    @BindView(R.id.morning_temp)
+    public TextView morningTw;
+
+    @BindView(R.id.afternoon_temp)
+    public TextView afternoonTw;
+
+    @BindView(R.id.evening_temp)
+    public TextView eveningTw;
+
+    @BindView(R.id.overnight_temp)
+    public TextView overnightTw;
+
+    @BindView(R.id.weather_img)
+    public ImageView imageView;
 
     public DayForecastHolder(@NonNull View itemView) {
         super(itemView);
+        ButterKnife.bind(this, itemView);
 
-        dateTw = itemView.findViewById(R.id.date);
-        morningTw = itemView.findViewById(R.id.morning_temp);
-        afternoonTw = itemView.findViewById(R.id.afternoon_temp);
-        eveningTw = itemView.findViewById(R.id.evening_temp);
-        overnightTw = itemView.findViewById(R.id.overnight_temp);
-        imageView = itemView.findViewById(R.id.weather_img);
         context = itemView.getContext();
     }
 

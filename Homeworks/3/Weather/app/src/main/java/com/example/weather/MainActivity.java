@@ -1,13 +1,6 @@
 package com.example.weather;
 
-import android.content.DialogInterface;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,20 +8,35 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     public static final String SELECTED_CITY = "selected_city";
+
+    @BindView(R.id.weather_rw)
     RecyclerView weatherRw;
-    private Toolbar toolbar;
-    private TextView noForecastTw;
+
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
+
+    @BindView(R.id.empty_view)
+    public TextView noForecastTw;
+
+    @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        toolbar = findViewById(R.id.toolbar);
-        noForecastTw = findViewById(R.id.empty_view);
+        ButterKnife.bind(this);
 
         String cityName = getPreferences(MODE_PRIVATE).getString(SELECTED_CITY, null);
         if (cityName == null){
@@ -38,11 +46,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         toolbar.setTitle(cityName);
         setSupportActionBar(toolbar);
 
-        weatherRw = findViewById(R.id.weather_rw);
         weatherRw.setLayoutManager(new LinearLayoutManager(this));
-
-        // todo: implement city retrieval
-
 
         // todo: implement DB call
         DayForecast[] dbData = GetTestData();
@@ -50,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         // todo: initiate API call and further invalidation
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -70,35 +73,31 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         final int id = 123;
         input.setId(id);
         final MainActivity mainActivity = this;
+        //@Override
+        //@Override
         new AlertDialog.Builder(this)
                 .setView(input)
                 .setTitle(R.string.change_city)
-                .setPositiveButton(R.string.ok_btn, new DialogInterface.OnClickListener() {
-                    //@Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditText input = ((AlertDialog) dialog).findViewById(id);
-                        Editable value = input.getText();
+                .setPositiveButton(R.string.ok_btn, (dialog, which) -> {
+                    EditText input1 = ((AlertDialog) dialog).findViewById(id);
+                    Editable value = input1.getText();
 
-                        String newCity = value.toString();
-                        if (newCity.isEmpty() || newCity.contentEquals(toolbar.getTitle())) {
-                            return;
-                        }
-
-                        mainActivity.getPreferences(MODE_PRIVATE)
-                                .edit()
-                                .putString(SELECTED_CITY, newCity)
-                                .apply();
-
-                        toolbar.setTitle(newCity);
-
-                        InvalidateData();
+                    String newCity = value.toString();
+                    if (newCity.isEmpty() || newCity.contentEquals(toolbar.getTitle())) {
+                        return;
                     }
+
+                    mainActivity.getPreferences(MODE_PRIVATE)
+                            .edit()
+                            .putString(SELECTED_CITY, newCity)
+                            .apply();
+
+                    toolbar.setTitle(newCity);
+
+                    InvalidateData();
                 })
-                .setNegativeButton(R.string.cancel_btn, new DialogInterface.OnClickListener() {
-                    //@Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
+                .setNegativeButton(R.string.cancel_btn, (dialog, which) -> {
+                    // do nothing
                 })
                 .show();
         return true;
