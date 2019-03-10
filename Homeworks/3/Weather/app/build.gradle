@@ -11,6 +11,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField "String", "API_BASE_URL", '"https://api.openweathermap.org/"'
+        buildConfigField "String", "WEATHER_API_KEY", readWeatherApiKey()
     }
 
     compileOptions {
@@ -52,4 +55,16 @@ dependencies {
 
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+private String readWeatherApiKey() {
+    def keysPropertiesFile = rootProject.file("keys.properties")
+    def keysProperties = new Properties()
+    try {
+        keysProperties.load(new FileInputStream(keysPropertiesFile))
+        def weatherApiKey = keysProperties['weather_api_key']
+        return weatherApiKey == null ? '""' : weatherApiKey
+    } catch (ignored) {
+        return '""'
+    }
 }

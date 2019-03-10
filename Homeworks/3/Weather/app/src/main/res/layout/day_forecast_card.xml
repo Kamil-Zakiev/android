@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/card_corner_radius">
 
         <TextView
             android:id="@+id/date"
@@ -19,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textSize="@dimen/date_text_size"
-            android:padding="7dp"
             tools:text="20.02.2019" />
 
         <LinearLayout
@@ -30,43 +30,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="@dimen/forecast_margin"
+                android:layout_gravity="center"
                 >
 
                 <TextView
-                    android:id="@+id/morning_temp"
+                    android:id="@+id/time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/forecast_text_size"
-                    tools:text="Morning: -6 C" />
+                    android:gravity="center"
+                    tools:text="23:00" />
 
                 <TextView
-                    android:id="@+id/afternoon_temp"
+                    android:id="@+id/temp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/forecast_text_size"
-                    tools:text="Afternoon:-8 C" />
+                    android:gravity="center"
+                    tools:text="-6 °C" />
 
-                <TextView
-                    android:id="@+id/evening_temp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/forecast_text_size"
-                    tools:text="Evening: -4 C" />
-
-                <TextView
-                    android:id="@+id/overnight_temp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/forecast_text_size"
-                    tools:text="Overnight: -4 C" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="@dimen/img_padding"
+                android:layout_gravity="center"
                 >
                 <ImageView
                     android:id="@+id/weather_img"

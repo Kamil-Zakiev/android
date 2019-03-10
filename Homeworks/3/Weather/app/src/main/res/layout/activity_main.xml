@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,6 +26,7 @@
             android:id="@+id/weather_rw"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
             android:scrollbars="vertical">
 
         </androidx.recyclerview.widget.RecyclerView>
