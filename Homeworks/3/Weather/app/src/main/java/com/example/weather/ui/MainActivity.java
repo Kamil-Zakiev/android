@@ -1,5 +1,8 @@
 package com.example.weather.ui;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.weather.R;
+import com.example.weather.data.HourForecastContract;
+import com.example.weather.data.HourlyForecastDbHelper;
 import com.example.weather.data.RepositoryProvider;
 
 import androidx.annotation.Nullable;
@@ -37,21 +42,21 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    private HourlyForecastDbHelper hourlyForecastDbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         swipeRefreshLayout.setOnRefreshListener(this);
+        hourlyForecastDbHelper = new HourlyForecastDbHelper(this);
 
         toolbar.setTitle(getCityName());
         setSupportActionBar(toolbar);
 
         weatherRw.setLayoutManager(new LinearLayoutManager(this));
-
-        // todo: implement DB call
-        HourlyForecast[] dbData = GetTestData();
-        weatherRw.setAdapter(new WeatherForecastsAdapter(dbData));
+        weatherRw.setAdapter(new WeatherForecastsAdapter(GetDbData()));
 
         InvalidateData();
     }
@@ -111,28 +116,46 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 .apply();
     }
 
-    private HourlyForecast[] GetTestData() {
-        int i = -10;
-        String testUrl = "https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-cloudy-512.png";
-        return new HourlyForecast[]{
-                new HourlyForecast("Day 1", "12:00", i++, testUrl),
-                new HourlyForecast("Day 1", "15:00", i++, testUrl),
-                new HourlyForecast("Day 1", "18:00", i++, testUrl),
-                new HourlyForecast("Day 1", "21:00", i++, testUrl),
-                new HourlyForecast("Day 2", "00:00", i++, testUrl),
-                new HourlyForecast("Day 2", "03:00", i++, testUrl),
-                new HourlyForecast("Day 2", "06:00", i++, testUrl),
-                new HourlyForecast("Day 2", "09:00", i++, testUrl),
-                new HourlyForecast("Day 2", "12:00", i++, testUrl),
-                new HourlyForecast("Day 2", "15:00", i++, testUrl),
-                new HourlyForecast("Day 2", "18:00", i++, testUrl),
-                new HourlyForecast("Day 3", "21:00", i++, testUrl),
-                new HourlyForecast("Day 3", "00:00", i++, testUrl),
-                new HourlyForecast("Day 3", "03:00", i++, testUrl),
-                new HourlyForecast("Day 3", "06:00", i++, testUrl),
-                new HourlyForecast("Day 3", "09:00", i++, testUrl),
-                new HourlyForecast("Day 3", "12:00", i++, testUrl),
-        };
+    private HourlyForecast[] GetDbData() {
+        SQLiteDatabase db = hourlyForecastDbHelper.getReadableDatabase();
+        String[] projection = {
+                HourForecastContract.HourForecastEntry.COLUMN_DAY,
+                HourForecastContract.HourForecastEntry.COLUMN_TIME,
+                HourForecastContract.HourForecastEntry.COLUMN_TEMP,
+                HourForecastContract.HourForecastEntry.COLUMN_ICON };
+
+        Cursor cursor = db.query(
+                HourForecastContract.HourForecastEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        int count = cursor.getCount();
+        if(count==0) {
+            return new HourlyForecast[0];
+        }
+
+        HourlyForecast[] result = new HourlyForecast[count];
+
+        int dayColumnIndex = cursor.getColumnIndex(HourForecastContract.HourForecastEntry.COLUMN_DAY);
+        int timeColumnIndex = cursor.getColumnIndex(HourForecastContract.HourForecastEntry.COLUMN_TIME);
+        int tempColumnIndex = cursor.getColumnIndex(HourForecastContract.HourForecastEntry.COLUMN_TEMP);
+        int iconColumnIndex = cursor.getColumnIndex(HourForecastContract.HourForecastEntry.COLUMN_ICON );
+        int i = 0;
+        while (cursor.moveToNext()) {
+            result[i] = new HourlyForecast(
+                    cursor.getString(dayColumnIndex),
+                    cursor.getString(timeColumnIndex),
+                    cursor.getFloat(tempColumnIndex),
+                    cursor.getString(iconColumnIndex));
+            i++;
+        }
+        cursor.close();
+
+        return result;
     }
 
     @Override
@@ -157,7 +180,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         @Override
         protected HourlyForecast[] doInBackground(Void... voids) {
-            return RepositoryProvider.get().provideWeatherRepository().getFiveDaysForecastFor(getCityName());
+            HourlyForecast[] forecasts = RepositoryProvider.get().provideWeatherRepository().getFiveDaysForecastFor(getCityName());
+
+            SQLiteDatabase db = hourlyForecastDbHelper.getWritableDatabase();
+            db.delete(HourForecastContract.HourForecastEntry.TABLE_NAME, null, null);
+
+            if (forecasts != null && forecasts.length != 0) {
+                for (HourlyForecast f : forecasts) {
+                    ContentValues values = new ContentValues();
+                    values.put(HourForecastContract.HourForecastEntry.COLUMN_DAY, f.getDate());
+                    values.put(HourForecastContract.HourForecastEntry.COLUMN_TIME, f.getTime());
+                    values.put(HourForecastContract.HourForecastEntry.COLUMN_TEMP, f.getTemp());
+                    values.put(HourForecastContract.HourForecastEntry.COLUMN_ICON, f.getWeatherImgUri());
+
+                    db.insert(HourForecastContract.HourForecastEntry.TABLE_NAME, null, values);
+                }
+            }
+            return forecasts;
         }
 
         @Override
